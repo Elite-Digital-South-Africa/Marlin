@@ -2457,7 +2457,7 @@
  * - During Hold all Emergency Parser commands are available, as usual.
  * - Enable NANODLP_Z_SYNC and NANODLP_ALL_AXIS for move command end-state reports.
  */
-//#define REALTIME_REPORTING_COMMANDS
+#define REALTIME_REPORTING_COMMANDS
 #if ENABLED(REALTIME_REPORTING_COMMANDS)
   //#define FULL_REPORT_TO_HOST_FEATURE   // Auto-report the machine status like Grbl CNC
 #endif
@@ -3320,7 +3320,7 @@
 //#define SPINDLE_FEATURE
 #define LASER_FEATURE
 #if EITHER(SPINDLE_FEATURE, LASER_FEATURE)
-  #define SPINDLE_LASER_ACTIVE_STATE    LOW    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
+  #define SPINDLE_LASER_ACTIVE_STATE    HIGH    // Set to "HIGH" if SPINDLE_LASER_ENA_PIN is active HIGH
 
   #define SPINDLE_LASER_USE_PWM                // Enable if your controller supports setting the speed/power
   #if ENABLED(SPINDLE_LASER_USE_PWM)
@@ -3329,6 +3329,8 @@
                                                // ESP32: If SPINDLE_LASER_PWM_PIN is onboard then <=78125Hz. For I2S expander
                                                //  the frequency determines the PWM resolution. 2500Hz = 0-100, 977Hz = 0-255, ...
                                                //  (250000 / SPINDLE_LASER_FREQUENCY) = max value.
+    #define SPINDLE_LASER_PWM_PIN 6
+    #define SPINDLE_LASER_ENA_PIN 8
   #endif
 
   //#define AIR_EVACUATION                     // Cutter Vacuum / Laser Blower motor control with G-codes M10-M11
@@ -3356,7 +3358,7 @@
    *  - RPM     (S0 - S50000)  Best for use with a spindle
    *  - SERVO   (S0 - S180)
    */
-  #define CUTTER_POWER_UNIT PWM255
+  #define CUTTER_POWER_UNIT PERCENT
 
   /**
    * Relative Cutter Power
@@ -3698,7 +3700,7 @@
  * High feedrates may cause ringing and harm print quality.
  */
 //#define PAREN_COMMENTS      // Support for parentheses-delimited comments
-//#define GCODE_MOTION_MODES  // Remember the motion mode (G0 G1 G2 G3 G5 G38.X) and apply for X Y Z E F, etc.
+#define GCODE_MOTION_MODES  // Remember the motion mode (G0 G1 G2 G3 G5 G38.X) and apply for X Y Z E F, etc.
 
 // Enable and set a (default) feedrate for all G0 moves
 //#define G0_FEEDRATE 3000 // (mm/min)
